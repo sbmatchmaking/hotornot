@@ -24,7 +24,7 @@ window.onload = function () {
 
     userPicture.src = localStorage.getItem("profile-pic");
 
-    fetch("https://sbmmbk.lol/api/v1.0.0/json/g/leaderboard")
+    fetch("https://sbmmbk.lol/api/v2.1.3/json/g/leaderboard")
         .then(response => response.json())
         .then(data => {
             for (let i = 0; i < data.length; i++) {

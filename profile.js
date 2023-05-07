@@ -13,7 +13,7 @@ window.onload = function () {
 
     pfp.src = localStorage.getItem("profile-pic");
 
-    fetch("https://sbmmbk.lol/api/v1.0.0/json/g/userelo", {
+    fetch("https://sbmmbk.lol/api/v2.1.3/json/g/userelo", {
         method: 'POST', headers: {
             'Content-Type': 'application/json'
         }, body: JSON.stringify({"uuid": uuid})

@@ -27,7 +27,7 @@ function updateImg(side) {
             rightText.uid = student.pk;
         }
     } else {
-        fetch("https://sbmmbk.lol/api/v1.0.0/json/skillbasedmatchmake", {
+        fetch("https://sbmmbk.lol/api/v2.1.3/json/skillbasedmatchmake", {
             method: 'POST', headers: {
                 'Content-Type': 'application/json'
             }, body: JSON.stringify({"uuid": uuid})
@@ -48,7 +48,7 @@ function updateImg(side) {
 }
 
 function updateElo(winner, loser) {
-    fetch("https://sbmmbk.lol/api/v1.0.0/json/p/upd", {
+    fetch("https://sbmmbk.lol/api/v2.1.3/json/p/upd", {
         method: 'POST', headers: {
             'Content-Type': 'application/json'
         }, body: JSON.stringify({"winner-id": winner, "loser-id": loser})

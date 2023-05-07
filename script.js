@@ -7,7 +7,7 @@ let options;
 let cur;
 
 function setUid(fname, lname) {
-    fetch("https://sbmmbk.lol/api/v1.0.0/json/p/name_to_uuid", {
+    fetch("https://sbmmbk.lol/api/v2.1.3/json/p/name_to_uuid", {
         method: 'POST', headers: {
             'Content-Type': 'application/json'
         }, body: JSON.stringify({fname: fname, lname: lname})
