@@ -6,7 +6,7 @@ const rightText = document.getElementById("right-text");
 const userPicture = document.getElementById("profile-pic");
 const uuid = localStorage.getItem("user-uid");
 
-const replaceWinnerChance = 0.0
+const replaceWinnerChance = 1.0
 const replaceLoserChance = 1.0
 
 let queue = [];
