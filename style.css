@@ -127,7 +127,7 @@ nav a {
 #search-container {
     position: absolute;
     top: 31px; /* 20 + (40 / 2) - (18 / 2) */
-    right: 80px;
+    right: 40px;
     /*width: auto;*/
     /*height: auto;*/
     overflow: hidden;
