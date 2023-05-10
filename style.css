@@ -37,27 +37,13 @@ nav ul {
 }
 
 nav li {
-    margin: 0 20px;
+    margin: 0 10px;
 }
 
 nav a {
     color: #fff;
     text-decoration: none;
     font-size: 18px;
-}
-
-/* Container Styles */
-.image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#login-notif {
-    text-align: center;
-    margin-top: 10px;
-    font-size: 16px;
-    /*   font-weight: bold; */
 }
 
 /* Style the container for the profile picture */
@@ -78,31 +64,27 @@ nav a {
     object-fit: cover;
 }
 
-/* Add margin between the profile picture and the text */
-.profile-link {
-    display: flex;
-    align-items: center;
+#search-container {
+    position: absolute;
+    top: 31px; /* 20 + (40 / 2) - (18 / 2) */
+    right: 80px;
+    /*width: auto;*/
+    /*height: auto;*/
+    overflow: hidden;
 }
 
-#button-div {
-    width: 1000%;
-    margin: 0 auto;
+#match-container {
+    position: absolute;
+    top: 31px; /* 20 + (40 / 2) - (18 / 2) */
+    right: 150px;
+    /*width: auto;*/
+    /*height: auto;*/
+    overflow: hidden;
 }
 
-#error-mssg {
-    text-align: center;
-    margin-top: 10px;
-    font-size: 20px;
-    color: red;
-    font-weight: bold;
-}
-
-.arrows {
-    margin-left: 40vw;
-    margin-right: 40vw;
-    /*margin-bottom: 10px;*/
-    font-size: 20px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
+/*.profile-container {*/
+/*    font-size: 20px;*/
+/*    display: flex;*/
+/*    justify-content: space-evenly;*/
+/*    align-items: center;*/
+/*}*/
