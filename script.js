@@ -3,8 +3,6 @@ const leftImage = document.getElementById("left-image");
 const leftText = document.getElementById("left-text");
 const rightImage = document.getElementById("right-image");
 const rightText = document.getElementById("right-text");
-const userPicture = document.getElementById("profile-pic");
-const uuid = localStorage.getItem("user-uid");
 
 const replaceWinnerChance = 1.0
 const replaceLoserChance = 1.0
@@ -53,15 +51,8 @@ function updateElo(winner, loser) {
 
 // Initialize on load
 window.onload = function () {
-    const uid = localStorage.getItem("user-uid");
-    if (uid == null) {
-        window.location.href = "index.html";
-    }
-
     updateImg('left');
     updateImg('right');
-
-    userPicture.src = localStorage.getItem("profile-pic");
 }
 
 
