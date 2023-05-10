@@ -80,7 +80,7 @@ tr:nth-child(even) {
 }
 
 /* Style the container for the profile picture */
-#profile-pic-container {
+/* #profile-pic-container {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -88,14 +88,14 @@ tr:nth-child(even) {
     height: 50px;
     border-radius: 50%;
     overflow: hidden;
-}
+} */
 
 /* Style the profile picture */
-#profile-pic {
+/* #profile-pic {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
+} */
 
 #match-container {
     position: absolute;
