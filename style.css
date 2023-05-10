@@ -46,8 +46,68 @@ nav a {
     font-size: 18px;
 }
 
+/* Container Styles */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Image Styles */
+.image-container {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-container img {
+    width: 30vw;
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Text Styles */
+.image-container p {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+@keyframes shake {
+    0% {
+        transform: rotate(0deg);
+    }
+    10% {
+        transform: rotate(10deg);
+    }
+    20% {
+        transform: rotate(-10deg);
+    }
+    30% {
+        transform: rotate(10deg);
+    }
+    40% {
+        transform: rotate(-10deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+}
+
+/* Apply the animation to the image when clicked */
+.clicked {
+    animation: shake 0.5s;
+    animation-iteration-count: 1;
+    border: 2px solid lightgreen;
+}
+
 /* Style the container for the profile picture */
-/* #profile-pic-container {
+#profile-pic-container {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -56,14 +116,13 @@ nav a {
     border-radius: 50%;
     overflow: hidden;
 }
-*/
 
 /* Style the profile picture */
-/* #profile-pic {
+#profile-pic {
     width: 100%;
     height: 100%;
     object-fit: cover;
-} */
+}
 
 #search-container {
     position: absolute;
@@ -74,18 +133,10 @@ nav a {
     overflow: hidden;
 }
 
-#match-container {
-    position: absolute;
-    top: 31px; /* 20 + (40 / 2) - (18 / 2) */
-    right: 150px;
-    /*width: auto;*/
-    /*height: auto;*/
-    overflow: hidden;
+.instruct {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 24px;
+    color: black;
+    font-weight: bold;
 }
-
-/*.profile-container {*/
-/*    font-size: 20px;*/
-/*    display: flex;*/
-/*    justify-content: space-evenly;*/
-/*    align-items: center;*/
-/*}*/
