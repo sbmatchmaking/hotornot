@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
     <title>Skill Based Matchmaking</title>
-    <link href="style.css" rel="stylesheet">
+    <link href="matching.css" rel="stylesheet">
 </head>
 
 <body>
@@ -17,29 +16,26 @@
                     <img alt="Logo" src="logo.png">
                 </div>
             </a>
+            <li><a class="search" href="search.html">
+                <div id="search-container">Search</div>
+            </a></li>
         </ul>
     </nav>
 </header>
+<div class="instruct">
+    <p id = "mssg">Click on the hotter one!</p>
+</div>
 <div class="container">
-    <p id="login-notif">You must sign in to use this app. Make sure to use your school email. </p>
+    <div class="image-container">
+        <img alt="Left Image" id="left-image" src="">
+        <p id="left-text" uid="">Loading...</p>
+    </div>
+    <div class="image-container">
+        <img alt="Right Image" id="right-image" src="">
+        <p id="right-text" uid="">Loading...</p>
+    </div>
 </div>
-
-<div class="sign-in-error-container">
-    <p id="error-mssg"></p>
-</div>
-
-<div class="image-container">
-    <img alt="User Img" id="user-pfp" src="">
-</div>
-
-<div class="arrows">
-    <p id = "left-arrow"></p>
-    <p id = "right-arrow"></p>
-</div>
-
-<script async defer src="https://accounts.google.com/gsi/client"></script>
 <script src="script.js"></script>
-<div id="buttonDiv"></div>
 </body>
 
 </html>
