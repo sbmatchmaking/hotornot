@@ -1,107 +1,106 @@
-const errorMssg = document.getElementById("error-mssg");
-const leftArrow = document.getElementById("left-arrow");
-const rightArrow = document.getElementById("right-arrow");
-const pfp = document.getElementById("user-pfp")
+// Get the left and right images and their text elements
+const leftImage = document.getElementById("left-image");
+const leftText = document.getElementById("left-text");
+const rightImage = document.getElementById("right-image");
+const rightText = document.getElementById("right-text");
+const userPicture = document.getElementById("profile-pic");
+const uuid = localStorage.getItem("user-uid");
 
-let options;
-let cur;
+const replaceWinnerChance = 1.0
+const replaceLoserChance = 1.0
 
-function setUid(fname, lname) {
-    fetch("https://sbmmbk.lol/api/v2.1.3/json/p/name_to_uuid", {
+let queue = [];
+let canClick = true;
+
+
+function updateImg(side) {
+    if (queue.length > 0) {
+        const student = queue.shift();
+
+        if (side == 'left') {
+            leftImage.src = student.imgSrc;
+            leftText.textContent = student.name;
+            leftText.uid = student.pk;
+        } else {
+            rightImage.src = student.imgSrc;
+            rightText.textContent = student.name;
+            rightText.uid = student.pk;
+        }
+    } else {
+        fetch("https://sbmmbk.lol/api/v2.1.3/json/skillbasedmatchmake")
+            .then(response => response.json())
+            .then(data => {
+                for (let i = 0; i < data.length; i++) {
+                    let student = data[i].fields;
+                    const option = {
+                        imgSrc: student.pfp_src, name: (student.fname) + " " + (student.lname), pk: data[i].pk,
+                    };
+                    queue.push(option);
+                }
+
+                updateImg(side);
+            });
+    }
+}
+
+function updateElo(winner, loser) {
+    fetch("https://sbmmbk.lol/api/v2.1.3/json/p/upd", {
         method: 'POST', headers: {
             'Content-Type': 'application/json'
-        }, body: JSON.stringify({fname: fname, lname: lname})
+        }, body: JSON.stringify({"winner-id": winner, "loser-id": loser})
     })
-        .then(response => response.json())
-        .then(data => {
-            if (data.length === 1) {
-                localStorage.setItem("user-uid", data[0].pk);
-                redirect();
-            } else {
-                cur = 0;
-                options = data;
-                pfp.style.visibility = "visible";
-                pfp.src = options[cur].fields.pfp_src;
-                leftArrow.textContent = "Prev";
-                rightArrow.textContent = "Next";
-                errorMssg.textContent = "Please use the left and right arrows to find yourself. When found, click on the image."
-            }
-        });
 }
 
-function decodeJwtResponse(token) {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-
-    return JSON.parse(jsonPayload);
-}
-
-function redirect() {
-    window.location.href = "matching.html"
-}
-
-function handleCredentialResponse(response) {
-    // console.log("Encoded JWT ID token: " + response.credential);
-    const responsePayload = decodeJwtResponse(response.credential);
-    // localStorage.setItem("user-name", responsePayload.name);
-    // localStorage.setItem("user-email", responsePayload.email);
-    // userName.textContent = responsePayload.name;
-    // userEmail.textContent = responsePayload.email;
-    // userPicture.src = responsePayload.picture;
-    // console.log("ID: " + responsePayload.sub);
-    // console.log('Full Name: ' + responsePayload.name);
-    // console.log('Given Name: ' + responsePayload.given_name);
-    // console.log('Family Name: ' + responsePayload.family_name);
-    // console.log("Image URL: " + responsePayload.picture);
-    // console.log("Email: " + responsePayload.email);
-
-    if (responsePayload.email.endsWith("@student.fuhsd.org")) {
-        let userName = responsePayload.name
-        let fname = userName.substring(0, userName.indexOf(" "));
-        let lname = userName.substring(userName.lastIndexOf(" ") + 1);
-        localStorage.setItem("profile-pic", responsePayload.picture);
-        setUid(fname, lname);
-        // window.location.href = "matching.html"
-        // setTimeout(function () {window.location.href = "matching.html"}, 1000);
-    } else {
-        errorMssg.textContent = "You must sign in with your school email!"
-    }
-}
-
+// Initialize on load
 window.onload = function () {
     const uid = localStorage.getItem("user-uid");
-    // console.log(uid);
-    if (uid != null) {
-        window.location.href = "matching.html";
-    } else {
-        pfp.style.visibility = "hidden";
-
-        google.accounts.id.initialize({
-            client_id: "662378591934-jvon7etbdg6n57ssiqsdrvuerck8e64h.apps.googleusercontent.com",
-            callback: handleCredentialResponse
-        });
-        google.accounts.id.renderButton(document.getElementById("buttonDiv"), {theme: "outline", size: "large"}  // customization attributes
-        );
-        google.accounts.id.prompt(); // also display the One Tap dialog
+    if (uid == null) {
+        window.location.href = "index.html";
     }
+
+    updateImg('left');
+    updateImg('right');
+
+    userPicture.src = localStorage.getItem("profile-pic");
 }
 
-pfp.addEventListener("click", function() {
-    localStorage.setItem("user-uid", options[cur].pk);
-    redirect();
+
+// Add a click event listener to the left image
+leftImage.addEventListener("click", () => {
+    if (canClick) {
+        canClick = false;
+        setTimeout(function () {
+            canClick = true;
+        }, 1000); // set timeout for 1 second
+
+        // Add the shake animation class
+        leftImage.classList.add("clicked");
+
+        setTimeout(() => {
+            leftImage.classList.remove("clicked");
+            updateElo(leftText.uid, rightText.uid)
+            if (Math.random() < replaceWinnerChance) updateImg('left');
+            if (Math.random() < replaceLoserChance) updateImg('right');
+        }, 500);
+    }
 });
 
-leftArrow.addEventListener("click", function() {
-    cur = (cur - 1 + options.length) % options.length
-    pfp.src = options[cur].fields.pfp_src;
+// Add a click event listener to the right image
+rightImage.addEventListener("click", () => {
+    if (canClick) {
+        canClick = false;
+        setTimeout(function () {
+            canClick = true;
+        }, 1000); // set timeout for 1 second
 
+        // Add the shake animation class
+        rightImage.classList.add("clicked");
+
+        setTimeout(() => {
+            rightImage.classList.remove("clicked");
+            updateElo(rightText.uid, leftText.uid)
+            if (Math.random() < replaceWinnerChance) updateImg('right');
+            if (Math.random() < replaceLoserChance) updateImg('left');
+        }, 500);
+    }
 });
-
-rightArrow.addEventListener("click", function() {
-    cur = (cur + 1 + options.length) % options.length
-    pfp.src = options[cur].fields.pfp_src;
-});
-
