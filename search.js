@@ -1,6 +1,5 @@
 const leaderboard = document.getElementById('leaderboard');
 const searchInput = document.getElementById('search-input');
-const userPicture = document.getElementById("profile-pic");
 
 // Add a listener to the search input
 searchInput.addEventListener('input', () => {
@@ -17,13 +16,6 @@ searchInput.addEventListener('input', () => {
 });
 
 window.onload = function () {
-    const uid = localStorage.getItem("user-uid");
-    if (uid == null) {
-        window.location.href = "index.html";
-    }
-
-    userPicture.src = localStorage.getItem("profile-pic");
-
     fetch("https://sbmmbk.lol/api/v2.1.3/json/g/leaderboard")
         .then(response => response.json())
         .then(data => {
